@@ -33,7 +33,7 @@ def deploy_www(env=None):
     logger.info('source folder: {}'.format(src_dir))
     dest_bucket = 'sharequiz-{}'.format(env)
     logger.info('destination bucket: {}'.format(dest_bucket))
-    dest_dir = 'www'
+    dest_dir = ''
     logger.info('destination folder: {}'.format(dest_dir))
 
     # 全部デプロイする
@@ -42,4 +42,13 @@ def deploy_www(env=None):
     bucket = s3.Bucket(dest_bucket)
     for file_path in glob.iglob(src_dir+'/*'):
         file_name = os.path.basename(file_path)
-        bucket.upload_file(file_path, '{}/{}'.format(dest_dir, file_name))
+        bucket.upload_file(
+            file_path,
+            # TODO: フォルダアップロードすること
+            file_name,
+            ExtraArgs={
+                'ACL': 'public-read',
+                # TODO: ContentTypeを拡張して判別しておくこと
+                'ContentType': 'text/html',
+            }
+        )
