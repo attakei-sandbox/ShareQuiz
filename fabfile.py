@@ -7,7 +7,6 @@
 """
 import os
 import logging
-import glob
 import boto3
 
 
@@ -32,7 +31,7 @@ def deploy_www(env=None):
         env = 'dev'
     # デプロイ対象の選定
     logger = Logger.getChild('deploy_www')
-    src_dir = './www/dist'
+    src_dir = './www/dist/'
     logger.info('source folder: {}'.format(src_dir))
     dest_bucket = 'sharequiz-{}'.format(env)
     logger.info('destination bucket: {}'.format(dest_bucket))
@@ -43,15 +42,24 @@ def deploy_www(env=None):
     # TODO: 無変更なものをデプロイせずに済む方法を探す
     s3 = Session.resource('s3')
     bucket = s3.Bucket(dest_bucket)
-    for file_path in glob.iglob(src_dir+'/*'):
-        file_name = os.path.basename(file_path)
+    for file_path in _glob_recursive(src_dir):
+        file_s3_key = file_path.replace(src_dir, '')
+        if os.path.isdir(file_path):
+            continue
         bucket.upload_file(
             file_path,
-            # TODO: フォルダアップロードすること
-            file_name,
+            file_s3_key,
             ExtraArgs={
                 'ACL': 'public-read',
                 # TODO: ContentTypeを拡張して判別しておくこと
                 'ContentType': 'text/html',
             }
         )
+
+
+# Thanks for http://qiita.com/suin/items/cdef17e447ceeff6e79d
+def _glob_recursive(directory):
+    for root, dirs, files in os.walk(directory):
+        yield root
+        for file in files:
+            yield os.path.join(root, file)
