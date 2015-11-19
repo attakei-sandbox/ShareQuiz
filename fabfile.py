@@ -15,16 +15,23 @@ Logger = logging.getLogger('deploy')
 Session = boto3.Session(profile_name='attakei')
 
 
-def deploy_www():
+def deploy_www(env=None):
     """www系のデプロイ
     
     * 事前にデプロイ先のバケットは作成してください
     """
+    # env確定
+    if env is not None:
+        pass
+    elif 'DEPLOY_ENV' in os.environ:
+        env = os.environ['DEPLOY_ENV']
+    else:
+        env = 'dev'
     # デプロイ対象の選定
     logger = Logger.getChild('deploy_www')
     src_dir = './www/dist'
     logger.info('source folder: {}'.format(src_dir))
-    dest_bucket = 'sharequiz-prod'
+    dest_bucket = 'sharequiz-{}'.format(env)
     logger.info('destination bucket: {}'.format(dest_bucket))
     dest_dir = 'www'
     logger.info('destination folder: {}'.format(dest_dir))
