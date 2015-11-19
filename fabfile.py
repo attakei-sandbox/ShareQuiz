@@ -49,11 +49,7 @@ def deploy_www(env=None):
         bucket.upload_file(
             file_path,
             file_s3_key,
-            ExtraArgs={
-                'ACL': 'public-read',
-                # TODO: ContentTypeを拡張して判別しておくこと
-                'ContentType': 'text/html',
-            }
+            ExtraArgs={'ACL': 'public-read', 'ContentType': _detect_mime(file_path)}
         )
 
 
@@ -63,3 +59,12 @@ def _glob_recursive(directory):
         yield root
         for file in files:
             yield os.path.join(root, file)
+
+
+def _detect_mime(file_name):
+    ext = os.path.basename(file_name).split('.')[-1]
+    if ext == 'html':
+        return 'text/html'
+    if ext == 'css':
+        return 'text/css'
+    return 'application/octet-stream'
