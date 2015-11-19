@@ -14,6 +14,8 @@ import boto3
 Session = boto3.Session(profile_name='sharequiz')
 
 Logger = logging.getLogger('deploy')
+Logger.setLevel(logging.INFO) # or whatever
+Logger.addHandler(logging.StreamHandler())
 
 
 def deploy_www(env=None):
