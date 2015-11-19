@@ -11,8 +11,9 @@ import glob
 import boto3
 
 
+Session = boto3.Session(profile_name='sharequiz')
+
 Logger = logging.getLogger('deploy')
-Session = boto3.Session(profile_name='attakei')
 
 
 def deploy_www(env=None):
