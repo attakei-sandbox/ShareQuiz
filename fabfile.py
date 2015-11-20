@@ -107,4 +107,6 @@ def _detect_mime(file_name):
         return 'text/css'
     if ext == 'js':
         return 'application/javascript'
+    if ext == 'json':
+        return 'application/json'
     return 'application/octet-stream'

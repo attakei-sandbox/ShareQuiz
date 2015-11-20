@@ -14,24 +14,28 @@ var config = {
 /*******************
  * src -> dist
  *******************/ 
-gulp.task('build', ['build:copy_vendor', 'build:copy', 'compile:scss']);
+gulp.task('build', ['copy:vendor', 'copy:dummy', 'compile:html', 'compile:scss']);
 
-gulp.task('build:copy', (callback) => {
+gulp.task('compile:html', (callback) => {
   gulp.src([config.path.src+'/**.html'])
     .pipe(gulp.dest(config.path.out))
 });
-
-gulp.task('build:copy_vendor', (callback) => {
-  gulp.src(config.path.vendor+'/**')
-    .pipe(gulp.dest(config.path.out+'/vendor'))
-});
-
 
 gulp.task('compile:scss', (callback) => {
   var sass = require('gulp-sass');
   gulp.src(config.path.src + '/scss/**.scss')
     .pipe(sass())
     .pipe(gulp.dest(config.path.out + '/css'))
+});
+
+gulp.task('copy:dummy', (callback) => {
+  gulp.src([config.path.src+'/dmy/**'])
+    .pipe(gulp.dest(config.path.out+'/dmy'))
+});
+
+gulp.task('copy:vendor', (callback) => {
+  gulp.src(config.path.vendor+'/**')
+    .pipe(gulp.dest(config.path.out+'/vendor'))
 });
 
 
