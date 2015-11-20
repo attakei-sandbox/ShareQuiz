@@ -10,5 +10,5 @@ index.html
 元ソース
 --------
 
-www/src/index.ect
+www/src/index.html
 

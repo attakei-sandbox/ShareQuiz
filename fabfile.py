@@ -76,7 +76,7 @@ def deploy_www(env=None):
         )
 
 
-def purge_deployed():
+def release_www():
     client = Session.client('cloudfront')
     destribution_id = 'EXEXJ7BAF1AJN'
     client.create_invalidation(
