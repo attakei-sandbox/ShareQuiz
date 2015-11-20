@@ -17,6 +17,7 @@
   "devDependencies": {
     "babel-core": "^6.2.1",
     "del": "^2.1.0",
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "node-sass": "^3.4.2"
   }
 }
