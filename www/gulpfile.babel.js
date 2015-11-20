@@ -16,7 +16,7 @@ var config = {
 gulp.task('build', ['build:copy_vendor', 'build:copy', 'compile:scss']);
 
 gulp.task('build:copy', (callback) => {
-  gulp.src([config.path.src+'/**.html'])
+  gulp.src([config.path.src+'/**/*.html', config.path.src+ '/**/*.css'])
     .pipe(gulp.dest(config.path.dist))
 });
 
