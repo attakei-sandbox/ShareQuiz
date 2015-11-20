@@ -18,12 +18,21 @@ Logger.setLevel(logging.DEBUG) # or whatever
 Logger.addHandler(logging.StreamHandler())
 
 
-def www():
+def clean_www():
+    """www系のクリーンアップ実行
+    """
+    with lcd('./www'):
+        local('npm install')
+        local('npm run clean')
+
+
+def build_www():
     """www系のビルド実行
     """
     with lcd('./www'):
         local('npm install')
         local('npm run build')
+
 
 def deploy_www(env=None):
     """www系のデプロイ

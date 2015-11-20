@@ -34,8 +34,8 @@ gulp.task('clean', ['clean:dist']);
 gulp.task('clean:dist', (callback) => {
   let fs = require('fs')
   let del = require('del')
-  del(config.path.dist)
-  fs.mkdir(config.path.dist)
+  del.sync(config.path.dist)
+  fs.mkdirSync(config.path.dist)
 });
 
 
