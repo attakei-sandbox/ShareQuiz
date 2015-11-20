@@ -8,6 +8,7 @@
 import os
 import logging
 import boto3
+from fabric.api import lcd, local
 
 
 Session = boto3.Session(profile_name='sharequiz')
@@ -16,6 +17,13 @@ Logger = logging.getLogger('deploy')
 Logger.setLevel(logging.DEBUG) # or whatever
 Logger.addHandler(logging.StreamHandler())
 
+
+def www():
+    """www系のビルド実行
+    """
+    with lcd('./www'):
+        local('npm install')
+        local('npm run build')
 
 def deploy_www(env=None):
     """www系のデプロイ
