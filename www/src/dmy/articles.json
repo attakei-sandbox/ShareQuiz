@@ -1,0 +1,14 @@
+{
+  "articles": [
+    {
+      "title": "Test title 1",
+      "url": "http://example.com/1",
+      "description": "test1",
+    },
+    {
+      "title": "Test title 2",
+      "url": "http://example.com/2",
+      "description": "test2",
+    }
+  ]
+}
