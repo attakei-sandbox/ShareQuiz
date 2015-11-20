@@ -27,6 +27,19 @@ gulp.task('build:copy_vendor', (callback) => {
 
 
 /*******************
+ * cleanup
+ *******************/ 
+gulp.task('clean', ['clean:dist']);
+
+gulp.task('clean:dist', (callback) => {
+  let fs = require('fs')
+  let del = require('del')
+  del(config.path.dist)
+  fs.mkdir(config.path.dist)
+});
+
+
+/*******************
  * Default
  *******************/ 
 gulp.task('default', ['build']);
