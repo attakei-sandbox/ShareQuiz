@@ -13,7 +13,7 @@ import boto3
 Session = boto3.Session(profile_name='sharequiz')
 
 Logger = logging.getLogger('deploy')
-Logger.setLevel(logging.INFO) # or whatever
+Logger.setLevel(logging.DEBUG) # or whatever
 Logger.addHandler(logging.StreamHandler())
 
 
@@ -43,9 +43,15 @@ def deploy_www(env=None):
     s3 = Session.resource('s3')
     bucket = s3.Bucket(dest_bucket)
     for file_path in _glob_recursive(src_dir):
+        file_name = os.path.basename(file_path)
         file_s3_key = file_path.replace(src_dir, '')
         if os.path.isdir(file_path):
+            logger.debug('Skip: {} (directory)'.format(file_path))
             continue
+        if file_name in ('.DS_Store'):
+            logger.debug('Skip: {} (ignored)'.format(file_path))
+            continue
+        logger.debug('Copy: {} -> {}'.format(file_path, file_s3_key))
         bucket.upload_file(
             file_path,
             file_s3_key,
@@ -67,4 +73,6 @@ def _detect_mime(file_name):
         return 'text/html'
     if ext == 'css':
         return 'text/css'
+    if ext == 'js':
+        return 'application/javascript'
     return 'application/octet-stream'
