@@ -7,6 +7,6 @@ indent_style = space
 end_of_line = crlf
 indent_size = 2
 
-[*.{jsx,json,yml}]
+[*.{jsx,json,yml,scss}]
 end_of_line = lf
 indent_size = 2
