@@ -76,6 +76,21 @@ def deploy_www(env=None):
         )
 
 
+def purge_deployed():
+    client = Session.client('cloudfront')
+    destribution_id = 'EXEXJ7BAF1AJN'
+    client.create_invalidation(
+        DistributionId=destribution_id,
+        InvalidationBatch={
+            'Paths': {
+                'Items': ['/*'],
+                'Quantity': 1,
+            },
+            'CallerReference': 'Purge all resources',
+        }
+    )
+
+
 # Thanks for http://qiita.com/suin/items/cdef17e447ceeff6e79d
 def _glob_recursive(directory):
     for root, dirs, files in os.walk(directory):
