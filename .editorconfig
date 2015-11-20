@@ -3,6 +3,6 @@ end_of_line = lf
 indent_size = 4
 indent_style = space
 
-[*.{yml,html}]
+[*.{js,jsx,yml,html}]
 end_of_line = crlf
 indent_size = 2
