@@ -39,6 +39,28 @@ gulp.task('copy:vendor', (callback) => {
 });
 
 
+gulp.task('webpack', function () {
+  var webpack = require('webpack-stream');
+  var webpackConfig = {
+    entry: config.path.src + '/jsx/index.jsx',
+    output: {
+      filename: 'js/index.js'
+    },
+    module: {
+      loaders: [
+         { test: /\.jsx$/, loader: 'jsx-loader' }
+      ]
+    },
+    resolve: {
+      extensions: ['', '.js', '.jsx']
+    }
+  };
+  gulp.src(config.path.src + '/jsx/*')
+    .pipe(webpack(webpackConfig))
+    .pipe(gulp.dest(config.path.out));
+});
+
+
 /*******************
  * cleanup
  *******************/ 
