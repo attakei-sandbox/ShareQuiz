@@ -8,6 +8,7 @@
 import os
 import logging
 import boto3
+from fabric.api import lcd, local
 
 
 Session = boto3.Session(profile_name='sharequiz')
@@ -15,6 +16,22 @@ Session = boto3.Session(profile_name='sharequiz')
 Logger = logging.getLogger('deploy')
 Logger.setLevel(logging.DEBUG) # or whatever
 Logger.addHandler(logging.StreamHandler())
+
+
+def clean_www():
+    """www系のクリーンアップ実行
+    """
+    with lcd('./www'):
+        local('npm install')
+        local('npm run clean')
+
+
+def build_www():
+    """www系のビルド実行
+    """
+    with lcd('./www'):
+        local('npm install')
+        local('npm run build')
 
 
 def deploy_www(env=None):
@@ -57,6 +74,21 @@ def deploy_www(env=None):
             file_s3_key,
             ExtraArgs={'ACL': 'public-read', 'ContentType': _detect_mime(file_path)}
         )
+
+
+def purge_deployed():
+    client = Session.client('cloudfront')
+    destribution_id = 'EXEXJ7BAF1AJN'
+    client.create_invalidation(
+        DistributionId=destribution_id,
+        InvalidationBatch={
+            'Paths': {
+                'Items': ['/*'],
+                'Quantity': 1,
+            },
+            'CallerReference': 'Purge all resources',
+        }
+    )
 
 
 # Thanks for http://qiita.com/suin/items/cdef17e447ceeff6e79d

@@ -1,0 +1,22 @@
+{
+  "name": "sharequiz",
+  "version": "0.0.1",
+  "description": "Stream of quiz sites",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp build",
+    "clean": "gulp clean",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/attakei/sharequiz2"
+  },
+  "author": "attakei",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "del": "^2.1.0",
+    "gulp": "^3.9.0"
+  }
+}
