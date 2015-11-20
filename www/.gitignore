@@ -34,5 +34,6 @@ node_modules
 .node_repl_history
 
 
-# dist
-dist/vendor
+# application
+dist/
+
