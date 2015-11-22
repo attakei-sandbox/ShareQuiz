@@ -18,6 +18,14 @@ Logger.setLevel(logging.DEBUG) # or whatever
 Logger.addHandler(logging.StreamHandler())
 
 
+def clean_lib():
+    """lib系のクリーンアップ実行
+    """
+    with lcd('./lib'):
+        local('rm -rf ./dist')
+        local('mkdir ./dist')
+
+
 def clean_www():
     """www系のクリーンアップ実行
     """
