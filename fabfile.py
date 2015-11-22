@@ -48,7 +48,7 @@ def deploy_www(env=None):
         env = 'dev'
     # デプロイ対象の選定
     logger = Logger.getChild('deploy_www')
-    src_dir = './www/dist/'
+    src_dir = './www/lib/'
     logger.info('source folder: {}'.format(src_dir))
     dest_bucket = 'sharequiz-{}'.format(env)
     logger.info('destination bucket: {}'.format(dest_bucket))
@@ -91,6 +91,11 @@ def release_www():
     )
 
 
+def local_server():
+    with lcd('www'):
+        local('gulp watch & python -m SimpleHTTPServer')
+
+
 # Thanks for http://qiita.com/suin/items/cdef17e447ceeff6e79d
 def _glob_recursive(directory):
     for root, dirs, files in os.walk(directory):
@@ -107,4 +112,6 @@ def _detect_mime(file_name):
         return 'text/css'
     if ext == 'js':
         return 'application/javascript'
+    if ext == 'json':
+        return 'application/json'
     return 'application/octet-stream'

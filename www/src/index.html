@@ -17,8 +17,8 @@
     -->
 
     <!-- Use bootstrap: local -->
-    <link rel="stylesheet" href="./vendor/bootstrap/bootstrap.min.css" />
-    <link rel="stylesheet" href="./vendor/bootstrap/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="./css/layout.css" />
   </head>
 
@@ -30,31 +30,12 @@
         </div>
       </div>
     </nav>
-    <div class="container">
+    <div class="container" id="main">
       <ul class="list-group">
-                        <li class="list-group-item">
-          <div>
-            <h4 class="list-group-item-heading">
-              <a href="http://example.com/1">Test title</a>
-              from 
-              <small><a href="http://example.com/"></a></small>
-            </h4>
-              <p class="list-group-item-text" style="margin-left:1em;">test</p>
-              <p class="text-right">Right aligned text.</p>
-          </div>
+        <li class="list-group-item">
+          <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>ロード中...
         </li>
-                <li class="list-group-item">
-          <div>
-            <h4 class="list-group-item-heading">
-              <a href="http://example.com/2">Test title 2</a>
-              from 
-              <small><a href="http://example.com/"></a></small>
-            </h4>
-              <p class="list-group-item-text" style="margin-left:1em;">test</p>
-              <p class="text-right">Right aligned text.</p>
-          </div>
-        </li>
-    </ul>
+      </ul>
     </div>
     <footer class="footer">
       <hr />
@@ -64,6 +45,10 @@
     </footer>
     <!-- scripts -->
     <script src="./vendor/jquery/jquery.min.js"></script>
-    <script src="./vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./vendor/react/react.min.js"></script>
+    <script src="./vendor/react/react-dom.min.js"></script>
+    <script src="./vendor/babel/browser.min.js"></script>
+    <script type="text/babel" src="./jsx/index.jsx"></script>
   </body>
 </html>
