@@ -24,6 +24,7 @@ gulp.task('build:copy', (callback) => {
   ];
   gulp.src(targets)
     .pipe(gulp.dest(config.path.out))
+  callback();
 });
 
 gulp.task('compile:scss', (callback) => {
@@ -36,11 +37,13 @@ gulp.task('compile:scss', (callback) => {
 gulp.task('copy:dummy', (callback) => {
   gulp.src([config.path.src+'/dmy/**'])
     .pipe(gulp.dest(config.path.out+'/dmy'))
+  callback();
 });
 
 gulp.task('copy:vendor', (callback) => {
   gulp.src(config.path.vendor+'/**')
     .pipe(gulp.dest(config.path.out+'/vendor'))
+  callback();
 });
 
 
@@ -61,6 +64,14 @@ gulp.task('clean:dist', (callback) => {
   let del = require('del')
   del.sync(config.path.dist)
   fs.mkdirSync(config.path.dist)
+});
+
+
+/*******************
+ * watching
+ *******************/ 
+gulp.task('watch', ['build'], () => {
+  gulp.watch('./src/**', ['build']);
 });
 
 

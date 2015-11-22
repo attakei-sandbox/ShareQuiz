@@ -91,6 +91,11 @@ def release_www():
     )
 
 
+def local_server():
+    with lcd('www'):
+        local('gulp watch & python -m SimpleHTTPServer')
+
+
 # Thanks for http://qiita.com/suin/items/cdef17e447ceeff6e79d
 def _glob_recursive(directory):
     for root, dirs, files in os.walk(directory):
