@@ -46,7 +46,12 @@ def run_add_site(url, env=None):
     logger.debug('Run for {}'.format(env))
     # URL validation
     feed_info = url2feed.extract(url)
-    dom = feedparser.parse(feed_info['url'])
+    logger.debug(feed_info)
+    try:
+        dom = feedparser.parse(feed_info['url'])
+    except (TypeError) as ex:
+        logger.error(ex)
+        return(1)
     # Data fetch and put
     dynamodb = Session.resource('dynamodb')
     table = dynamodb.Table('sharequiz-{}-sites'.format(env))
@@ -54,7 +59,7 @@ def run_add_site(url, env=None):
         'id': dom.feed.link,
         'url': dom.feed.link,
         'title': dom.feed.title,
-        'description': dom.feed.description,
+        'description': dom.feed.description or '(No description)',
     })
     
     table = dynamodb.Table('sharequiz-{}-articles'.format(env))
