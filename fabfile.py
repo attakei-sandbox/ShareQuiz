@@ -48,7 +48,7 @@ def deploy_www(env=None):
         env = 'dev'
     # デプロイ対象の選定
     logger = Logger.getChild('deploy_www')
-    src_dir = './www/dist/'
+    src_dir = './www/lib/'
     logger.info('source folder: {}'.format(src_dir))
     dest_bucket = 'sharequiz-{}'.format(env)
     logger.info('destination bucket: {}'.format(dest_bucket))
