@@ -1,14 +1,22 @@
 {
   "articles": [
     {
-      "title": "Test title 1",
       "url": "http://example.com/1",
-      "description": "test1",
+      "title": "test title 1",
+      "description": "test site is now developing 1.",
+      "site": {
+        "url": "http://example.com/",
+        "title": "Example title"
+      }
     },
     {
-      "title": "Test title 2",
       "url": "http://example.com/2",
-      "description": "test2",
+      "title": "test title 2",
+      "description": "test site is now developing 2.",
+      "site": {
+        "url": "http://example.com/",
+        "title": "Example title"
+      }
     }
   ]
 }

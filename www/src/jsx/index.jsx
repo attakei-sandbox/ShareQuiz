@@ -22,27 +22,23 @@ class App extends React.Component
   constructor(props) {
     super(props);
     this.state = {
-      articles: [
-        {
-          url: "http://example.com/1",
-          title: "test title 1",
-          description: "test site is now developing 1.",
-          site: {
-            url: "http://example.com/",
-            title: "Example title",
-          }
-        },
-        {
-          url: "http://example.com/2",
-          title: "test title 2",
-          description: "test site is now developing 2.",
-          site: {
-            url: "http://example.com/",
-            title: "Example title",
-          }
-        },
-      ]
+      articles: []
     };
+    this.fetchLatestArticles();
+  }
+
+  fetchLatestArticles() {
+    $.ajax({
+      url: "http://localhost:8000/dmy/articles.json",
+      dataType: 'json',
+      cache: false,
+      success: (data) => {
+        this.setState({articles: data.articles});
+      },
+      error: (xhr, status, err) => {
+        console.error("", status, err.toString());
+      }
+    });
   }
 
   render() {
