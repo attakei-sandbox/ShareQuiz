@@ -18,6 +18,63 @@ Logger.setLevel(logging.DEBUG) # or whatever
 Logger.addHandler(logging.StreamHandler())
 
 
+def run_add_site(url, env=None):
+    import time
+    import url2feed
+    import feedparser
+    def _find_published_date(entry):
+        if hasattr(entry, 'published_parsed'):
+            parsed_date = entry.published_parsed
+        elif hasattr(entry, 'updated_parsed'):
+            parsed_date = entry.updated_parsed
+        else:
+            return '2000-12-31T23:59:59+09:00'
+        if time.strftime('%Z', parsed_date) == 'JST':
+            tz = '+09:00'
+        else:
+            tz = '+00:00'
+        return time.strftime('%Y-%m-%dT%H:%M:%S' + tz, parsed_date)
+            
+    logger = Logger.getChild('run_add_site')
+    # env確定
+    if env is not None:
+        pass
+    elif 'DEPLOY_ENV' in os.environ:
+        env = os.environ['DEPLOY_ENV']
+    else:
+        env = 'dev'
+    logger.debug('Run for {}'.format(env))
+    # URL validation
+    feed_info = url2feed.extract(url)
+    dom = feedparser.parse(feed_info['url'])
+    # Data fetch and put
+    dynamodb = Session.resource('dynamodb')
+    table = dynamodb.Table('sharequiz-{}-sites'.format(env))
+    table.put_item(Item={
+        'id': dom.feed.link,
+        'url': dom.feed.link,
+        'title': dom.feed.title,
+        'description': dom.feed.description,
+    })
+    
+    table = dynamodb.Table('sharequiz-{}-articles'.format(env))
+    with table.batch_writer() as batch:
+        for entry in dom['entries']:
+            article = {
+                'id': entry.link,
+                'url': entry.link,
+                'title': entry.title,
+                'description': entry.summary,
+                'published_date': _find_published_date(entry),
+                'site': {
+                    'id': dom.feed.link,
+                    'url': dom.feed.link,
+                    'title': dom.feed.title,
+                }
+            }
+            batch.put_item(Item=article)
+
+
 def clean_lib():
     """lib系のクリーンアップ実行
     """

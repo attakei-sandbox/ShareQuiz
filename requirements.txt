@@ -1,2 +1,5 @@
 Fabric
 boto3
+
+feedparser
+url2feed
