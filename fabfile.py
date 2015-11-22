@@ -26,6 +26,56 @@ def clean_lib():
         local('mkdir ./dist')
 
 
+def build_lib():
+    """lib系のパッケージング
+    """
+    import zipfile
+    logger = Logger.getChild('deploy_lib')
+    # パッケージング対象の特定
+    src_dir = './lib'
+    targets = []
+    for file_path in _glob_recursive(src_dir):
+        file_name = os.path.basename(file_path)
+        packed_name = file_path.replace(src_dir + '/', '')
+        if os.path.isdir(file_path):
+            logger.debug('Skip: {} (directory)'.format(file_path))
+            continue
+        if file_name in ('.DS_Store', '.gitignore'):
+            logger.debug('Skip: {} (ignored)'.format(file_path))
+            continue
+        logger.debug('Target: {} -> {}'.format(file_path, packed_name))
+        targets.append((file_path, packed_name))
+    # パッケージの作成
+    package_file = './lib/dist/sharequiz.zip'
+    with zipfile.ZipFile(package_file, 'w') as zfp:
+        for target_file, target_name in targets:
+            zfp.write(target_file, target_name)
+
+
+def deploy_lib(env=None):
+    """www系のデプロイ
+    
+    * 事前にデプロイ先のバケットは作成してください
+    """
+    logger = Logger.getChild('deploy_lib')
+    # env確定
+    if env is not None:
+        pass
+    elif 'DEPLOY_ENV' in os.environ:
+        env = os.environ['DEPLOY_ENV']
+    else:
+        env = 'dev'
+    # デプロイ対象の選定
+    dest_bucket = 'sharequiz-{}'.format(env)
+    # デプロイする
+    s3 = Session.resource('s3')
+    bucket = s3.Bucket(dest_bucket)
+    bucket.upload_file(
+        'lib/dist/sharequiz.zip',
+        '_lib/sharequiz.zip',
+    )
+
+
 def clean_www():
     """www系のクリーンアップ実行
     """
