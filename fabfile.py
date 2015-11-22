@@ -32,7 +32,11 @@ def build_lib():
     import zipfile
     logger = Logger.getChild('deploy_lib')
     # パッケージング対象の特定
-    src_dir = './lib'
+    src_dir = './lib/build'
+    with lcd('./lib'):
+        # local('python setup.py sdist')
+        local('pip install -t ./build -r requirements.txt')
+        local('pip install -t ./build .')
     targets = []
     for file_path in _glob_recursive(src_dir):
         file_name = os.path.basename(file_path)
