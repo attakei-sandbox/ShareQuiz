@@ -29,7 +29,7 @@ class App extends React.Component
 
   fetchLatestArticles() {
     $.ajax({
-      url: "../dmy/articles.json",
+      url: "https://exbbuxhzf5.execute-api.ap-northeast-1.amazonaws.com/v1/articles",
       dataType: 'json',
       cache: false,
       success: (data) => {
