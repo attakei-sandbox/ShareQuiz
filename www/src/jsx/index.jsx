@@ -29,7 +29,7 @@ class App extends React.Component
 
   fetchLatestArticles() {
     $.ajax({
-      url: "http://localhost:8000/dmy/articles.json",
+      url: "../dmy/articles.json",
       dataType: 'json',
       cache: false,
       success: (data) => {
@@ -56,6 +56,7 @@ class App extends React.Component
     );
   }
 }
+
 
 ReactDOM.render(
   <App />,
