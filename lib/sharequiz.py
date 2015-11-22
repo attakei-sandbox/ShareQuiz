@@ -4,6 +4,9 @@
 __version__ = '0.0.1'
 
 
+import boto3
+
+
 def fetch_current_articles(event, context):
     '''記事リストを返す
 
@@ -11,26 +14,11 @@ def fetch_current_articles(event, context):
     :param context:
     :return:
     '''
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('sharequiz-dev-articles')
+    
+    results = table.scan()
     # TODO: It is a stub
     return {
-        'articles': [
-            {
-                'url': 'http://example.com/1',
-                'title': 'test title 1',
-                'description': 'test site is now developing 1.',
-                'site': {
-                    'url': 'http://example.com/',
-                    'title': 'Example title'
-                },
-            },
-            {
-                'url': 'http://example.com/2',
-                'title': 'test title 2',
-                'description': 'test site is now developing 2.',
-                'site': {
-                    'url': 'http://example.com/',
-                    'title': 'Example title'
-                },
-            },
-        ]
+        'articles': results.get('Items')
     }
