@@ -37,6 +37,7 @@ def build_lib():
         # local('python setup.py sdist')
         local('pip install -t ./build -r requirements.txt')
         local('pip install -U -t ./build . ')
+        local('cp ./handlers.json ./build/')
     targets = []
     for file_path in _glob_recursive(src_dir):
         file_name = os.path.basename(file_path)

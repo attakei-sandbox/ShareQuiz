@@ -1,0 +1,20 @@
+{
+  "_default_": {
+    "Runtime": "python2.7",
+    "Role": "arn:aws:iam::163269493807:role/sharequiz_service",
+    "Timeout": 3,
+    "MemorySize": 128
+  },
+  "handlers": [
+    {
+      "FunctionName": "fetch_current_articles",
+      "Handler": "sharequiz/handlers.fetch_current_articles",
+      "Description": "最新の記事一覧を返す"
+    },
+    {
+      "FunctionName": "fetch_articles_from_sites",
+      "Handler": "sharequiz/handlers.fetch_articles_from_sites",
+      "Description": "各サイトから最新の記事情報を取得して保存する"
+    }
+  ]
+}
