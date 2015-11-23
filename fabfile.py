@@ -41,11 +41,15 @@ def build_lib():
     targets = []
     for file_path in _glob_recursive(src_dir):
         file_name = os.path.basename(file_path)
+        file_ext = file_name.split('.')[-1]
         packed_name = file_path.replace(src_dir + '/', '')
         if os.path.isdir(file_path):
             logger.debug('Skip: {} (directory)'.format(file_path))
             continue
         if file_name in ('.DS_Store', '.gitignore'):
+            logger.debug('Skip: {} (ignored)'.format(file_path))
+            continue
+        if file_ext in ('pyc', ):
             logger.debug('Skip: {} (ignored)'.format(file_path))
             continue
         logger.debug('Target: {} -> {}'.format(file_path, packed_name))
