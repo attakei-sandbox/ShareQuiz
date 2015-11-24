@@ -10,11 +10,9 @@
     <link rel="icon" href="../../favicon.ico"> -->
 
     <% if @site.use_cdn : %>
-      <!-- Use bootstrap: CDN -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css" crossorigin="anonymous">
     <% else: %>
-      <!-- Use bootstrap: local -->
       <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css" />
       <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap-theme.min.css" />
     <% end %>
