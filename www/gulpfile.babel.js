@@ -9,6 +9,7 @@ var config = {
         vendor: './vendor',
     }
 };
+var appConfig = require('config');
 
 
 /*******************
