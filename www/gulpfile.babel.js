@@ -15,7 +15,7 @@ var appConfig = require('config');
 /*******************
  * src -> dist
  *******************/ 
-gulp.task('build', ['copy:vendor', 'copy:dummy', 'build:copy']);
+gulp.task('build', ['copy:vendor', 'copy:dummy', 'compile:ect', 'build:copy']);
 
 gulp.task('build:copy', (callback) => {
   var targets = [
@@ -25,6 +25,14 @@ gulp.task('build:copy', (callback) => {
   ];
   gulp.src(targets)
     .pipe(gulp.dest(config.path.out))
+  callback();
+});
+
+gulp.task('compile:ect', (callback) => {
+  var ect = require('gulp-ect');
+  gulp.src(config.path.src + '/**.ect')
+    .pipe(ect({data: appConfig}))
+    .pipe(gulp.dest(config.path.out));
   callback();
 });
 
