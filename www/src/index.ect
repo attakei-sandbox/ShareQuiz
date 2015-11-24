@@ -9,16 +9,15 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico"> -->
 
-    <!-- Use bootstrap: CDN -->
-    <!--
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-    -->
-
-    <!-- Use bootstrap: local -->
-    <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap-theme.min.css" />
+    <% if @site.use_cdn : %>
+      <!-- Use bootstrap: CDN -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css" crossorigin="anonymous">
+    <% else: %>
+      <!-- Use bootstrap: local -->
+      <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap-theme.min.css" />
+    <% end %>
     <link rel="stylesheet" href="./css/layout.css" />
   </head>
 
@@ -44,11 +43,19 @@
       </div>
     </footer>
     <!-- scripts -->
-    <script src="./vendor/jquery/jquery.min.js"></script>
-    <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="./vendor/react/react.min.js"></script>
-    <script src="./vendor/react/react-dom.min.js"></script>
-    <script src="./vendor/babel/browser.min.js"></script>
+    <% if @site.use_cdn : %>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
+    <% else: %>
+      <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+      <script src="./vendor/jquery/jquery.min.js"></script>
+      <script src="./vendor/babel/browser.min.js"></script>
+      <script src="./vendor/react/react.min.js"></script>
+      <script src="./vendor/react/react-dom.min.js"></script>
+    <% end %>
     <script type="application/javascript">
     var config = {
       api: {
