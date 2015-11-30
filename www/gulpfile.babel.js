@@ -1,5 +1,6 @@
 'use strict';
 var gulp = require('gulp');
+process.env.NODE_CONFIG_DIR = '../config';
 
 var config = {
     path: {
@@ -11,6 +12,7 @@ var config = {
 };
 var appConfig = require('config');
 
+console.log(appConfig);
 
 /*******************
  * src -> dist
