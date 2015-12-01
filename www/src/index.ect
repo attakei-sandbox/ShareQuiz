@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico"> -->
+
+    <% if @site.use_cdn : %>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap-theme.min.css" crossorigin="anonymous">
+    <% else: %>
+      <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap-theme.min.css" />
+    <% end %>
+    <link rel="stylesheet" href="./css/layout.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">ShareQuiz</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container" id="main">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>ロード中...
+        </li>
+      </ul>
+    </div>
+    <footer class="footer">
+      <hr />
+      <div class="container">
+        <p class="text-muted">Powered by attakei, and thanks for all websites.</p>
+      </div>
+    </footer>
+    <!-- scripts -->
+    <% if @site.use_cdn : %>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
+    <% else: %>
+      <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+      <script src="./vendor/jquery/jquery.min.js"></script>
+      <script src="./vendor/babel/browser.min.js"></script>
+      <script src="./vendor/react/react.min.js"></script>
+      <script src="./vendor/react/react-dom.min.js"></script>
+    <% end %>
+    <script type="application/javascript">
+    var config = {
+      api: {
+        url_base: '<%- @api.url_base %>'
+      }
+    };
+    </script>
+    <script type="text/babel" src="./jsx/index.jsx"></script>
+  </body>
+</html>
