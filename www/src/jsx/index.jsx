@@ -28,8 +28,9 @@ class App extends React.Component
   }
 
   fetchLatestArticles() {
+    var url = this.props.config.api.url_base + '/articles';
     $.ajax({
-      url: "https://exbbuxhzf5.execute-api.ap-northeast-1.amazonaws.com/v1/articles",
+      url: url,
       dataType: 'json',
       cache: false,
       success: (data) => {
@@ -59,6 +60,6 @@ class App extends React.Component
 
 
 ReactDOM.render(
-  <App />,
+  <App config={config} />,
   document.getElementById('main')
 );

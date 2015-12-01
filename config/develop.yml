@@ -1,0 +1,4 @@
+site:
+  url_base: http://sharequiz-dev.s3-website-ap-northeast-1.amazonaws.com
+api:
+  url_base: https://exbbuxhzf5.execute-api.ap-northeast-1.amazonaws.com/v1
