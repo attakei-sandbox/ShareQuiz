@@ -4,8 +4,9 @@
 from datetime import datetime
 import time
 import boto3
+from ananta import lambda_config
 
-
+@lambda_config(FunctionName='fetch_current_articles')
 def fetch_current_articles(event, context):
     """記事リストを返す
 
@@ -38,6 +39,7 @@ def fetch_current_articles(event, context):
     }
 
 
+@lambda_config(FunctionName='fetch_articles_from_sites', TimeOut=30)
 def fetch_articles_from_sites(event, context):
     """登録されているサイト情報から、記事を取得させる。
 
