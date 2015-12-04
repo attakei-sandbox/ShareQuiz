@@ -1,0 +1,3 @@
+[submodule "lib/vendor/ananta"]
+	path = lib/vendor/ananta
+	url = https://attakei@github.com/attakei/ananta.git
