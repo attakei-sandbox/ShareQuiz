@@ -60,7 +60,7 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 
-class PackageCommand(Command):
+class LambdaArchiveCommand(Command):
     user_options = []
 
     def initialize_options(self):
@@ -105,7 +105,7 @@ setup(
     tests_require=test_requires,
     cmdclass={
         'test': PyTest,
-        'package': PackageCommand,
+        'lambda': LambdaArchiveCommand,
     },
     entry_points={
         "console_scripts": [
