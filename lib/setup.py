@@ -2,7 +2,7 @@ import os
 import sys
 import codecs
 import re
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Command
 from setuptools.command.test import test as TestCommand
 
 
@@ -59,6 +59,25 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 
+class PackageCommand(Command):
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        import tempfile
+        import subprocess
+        import shutil
+        import glob
+        package_dir = tempfile.mkdtemp()
+        command = subprocess.Popen(['pip', 'install', '-t', package_dir, '.'])
+        command.wait()
+        shutil.rmtree(package_dir)
+
 setup(
     name='sharequiz',
     version=find_version('sharequiz/__init__.py'),
@@ -74,7 +93,10 @@ setup(
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=package_requires,
     tests_require=test_requires,
-    cmdclass={'test': PyTest},
+    cmdclass={
+        'test': PyTest,
+        'package': PackageCommand,
+    },
     entry_points={
         "console_scripts": [
         ]
