@@ -1,3 +1,4 @@
+# -*- coding:utf8 -*-
 import os
 import sys
 import codecs
@@ -73,9 +74,18 @@ class PackageCommand(Command):
         import subprocess
         import shutil
         import glob
+        import zipfile
         package_dir = tempfile.mkdtemp()
         command = subprocess.Popen(['pip', 'install', '-t', package_dir, '.'])
         command.wait()
+        # パッケージの作成
+        package_file = './sharequiz.zip'
+        with zipfile.ZipFile(package_file, 'w') as zfp:
+            for root, dirs, files in os.walk(package_dir):
+                for file in files:
+                    fullpath = os.path.join(root, file)
+                    itempath = fullpath.replace(package_dir+'/', '')
+                    zfp.write(fullpath, itempath)
         shutil.rmtree(package_dir)
 
 setup(
