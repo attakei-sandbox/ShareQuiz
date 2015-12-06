@@ -78,6 +78,9 @@ class LambdaArchiveCommand(Command):
         package_dir = tempfile.mkdtemp()
         command = subprocess.Popen(['pip', 'install', '-t', package_dir, '.'])
         command.wait()
+        # TODO: anantaの正式登録後は削除する処理
+        command = subprocess.Popen(['pip', 'install', '-t', package_dir, './vendor/ananta'])
+        command.wait()
         functions_dump_path = os.path.join(package_dir, 'functions.json')
         with open(functions_dump_path , 'w') as fp:
             command = subprocess.Popen('ananta dump -c ./ananta.ini -p sharequiz'.split(' '), stdout=fp)
