@@ -90,6 +90,8 @@ class LambdaArchiveCommand(Command):
         with zipfile.ZipFile(package_file, 'w') as zfp:
             for root, dirs, files in os.walk(package_dir):
                 for file in files:
+                    if file.endswith('.pyc'):
+                        continue
                     fullpath = os.path.join(root, file)
                     itempath = fullpath.replace(package_dir+'/', '')
                     zfp.write(fullpath, itempath)
