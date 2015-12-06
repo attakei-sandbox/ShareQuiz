@@ -40,7 +40,7 @@ def fetch_current_articles(event, context):
     }
 
 
-@lambda_config(FunctionName='fetch_articles_from_sites', Description="外部からの記事取得", TimeOut=30)
+@lambda_config(FunctionName='fetch_articles_from_sites', Description="外部からの記事取得", Timeout=30)
 def fetch_articles_from_sites(event, context):
     """登録されているサイト情報から、記事を取得させる。
 

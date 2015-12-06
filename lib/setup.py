@@ -78,6 +78,10 @@ class LambdaArchiveCommand(Command):
         package_dir = tempfile.mkdtemp()
         command = subprocess.Popen(['pip', 'install', '-t', package_dir, '.'])
         command.wait()
+        functions_dump_path = os.path.join(package_dir, 'functions.json')
+        with open(functions_dump_path , 'w') as fp:
+            command = subprocess.Popen('ananta dump -c ./ananta.ini -p sharequiz'.split(' '), stdout=fp)
+            command.wait()
         # パッケージの作成
         package_file = './sharequiz.zip'
         with zipfile.ZipFile(package_file, 'w') as zfp:
