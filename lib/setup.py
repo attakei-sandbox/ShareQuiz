@@ -83,7 +83,7 @@ class LambdaArchiveCommand(Command):
         command.wait()
         functions_dump_path = os.path.join(package_dir, 'functions.json')
         with open(functions_dump_path , 'w') as fp:
-            command = subprocess.Popen('ananta dump -c ./ananta.ini -p sharequiz'.split(' '), stdout=fp)
+            command = subprocess.Popen(['ananta', 'dump', '-c', './ananta.ini', '-p', 'sharequiz'], stdout=fp)
             command.wait()
         # パッケージの作成
         package_file = './sharequiz.zip'
@@ -96,6 +96,7 @@ class LambdaArchiveCommand(Command):
                     itempath = fullpath.replace(package_dir+'/', '')
                     zfp.write(fullpath, itempath)
         shutil.rmtree(package_dir)
+
 
 setup(
     name='sharequiz',
