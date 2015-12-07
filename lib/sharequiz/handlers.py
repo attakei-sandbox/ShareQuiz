@@ -7,7 +7,8 @@ import boto3
 from ananta import lambda_config
 
 
-@lambda_config(FunctionName='fetch_current_articles', Description="取得済み記事リストを返す")
+# TODO: ananta の修正待ち（prefix機能を持たせたのちにコア部分だけの記述に）
+@lambda_config(FunctionName='sharequiz-prod-fetch_current_articles', Description="取得済み記事リストを返す")
 def fetch_current_articles(event, context):
     """記事リストを返す
 
@@ -16,7 +17,8 @@ def fetch_current_articles(event, context):
     :return:
     """
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('sharequiz-dev-articles')
+    # TODO: テーブル名のステージをハードコーディングしている
+    table = dynamodb.Table('sharequiz-prod-articles')
     
     now_string = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
     results = table.scan(
@@ -40,7 +42,8 @@ def fetch_current_articles(event, context):
     }
 
 
-@lambda_config(FunctionName='fetch_articles_from_sites', Description="外部からの記事取得", Timeout=30)
+# TODO: ananta の修正待ち（prefix機能を持たせたのちにコア部分だけの記述に）
+@lambda_config(FunctionName='sharequiz-prod-fetch_articles_from_sites', Description="外部からの記事取得", Timeout=30)
 def fetch_articles_from_sites(event, context):
     """登録されているサイト情報から、記事を取得させる。
 
@@ -66,7 +69,8 @@ def fetch_articles_from_sites(event, context):
     dynamodb = boto3.resource('dynamodb')
 
     # サイトを取得する
-    _table = dynamodb.Table('sharequiz-dev-sites')
+    # TODO: テーブル名のステージをハードコーディングしている
+    _table = dynamodb.Table('sharequiz-prod-sites')
     _results = _table.scan()
     sites = _results.get('Items')
 
@@ -90,7 +94,8 @@ def fetch_articles_from_sites(event, context):
             articles.append(article)
 
     # まとめてDBに登録する
-    _table = dynamodb.Table('sharequiz-dev-articles')
+    # TODO: テーブル名のステージをハードコーディングしている
+    _table = dynamodb.Table('sharequiz-prod-articles')
     with _table.batch_writer() as _batch:
         for article in articles:
             _batch.put_item(Item=article)
